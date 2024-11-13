@@ -1,0 +1,17 @@
+# Node modules
+node_modules/
+
+# Strapi build files
+.build/
+.cache/
+dist/
+.tmp/
+
+# Environment files
+.env
+.env.*
+
+# Other
+.idea/
+.vscode/
+.DS_Store
