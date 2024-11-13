@@ -1,0 +1,59 @@
+{
+  "kind": "collectionType",
+  "collectionName": "deliveries",
+  "info": {
+    "singularName": "delivery",
+    "pluralName": "deliveries",
+    "displayName": "Delivery",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "deliveryID": {
+      "type": "uid"
+    },
+    "supplier": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::supplier.supplier",
+      "inversedBy": "deliveries"
+    },
+    "arrivalTimestamp": {
+      "type": "date",
+      "required": true
+    },
+    "statusOf": {
+      "type": "boolean",
+      "required": true
+    },
+    "expectedArrivalTimestamp": {
+      "type": "date"
+    },
+    "product": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::product.product"
+    },
+    "product_id": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::product.product",
+      "inversedBy": "deliveries"
+    },
+    "createdAtDate": {
+      "type": "date"
+    },
+    "updatedAtDate": {
+      "type": "date"
+    },
+    "notifications": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::notification.notification",
+      "mappedBy": "related_delivery"
+    }
+  }
+}

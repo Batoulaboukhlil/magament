@@ -1,0 +1,48 @@
+{
+  "kind": "collectionType",
+  "collectionName": "nventory_logs",
+  "info": {
+    "singularName": "nventory-log",
+    "pluralName": "nventory-logs",
+    "displayName": "Inventory Log",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "logID": {
+      "type": "uid"
+    },
+    "product": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::product.product",
+      "inversedBy": "inventory_log"
+    },
+    "action": {
+      "type": "string",
+      "minLength": 5
+    },
+    "quantityChange": {
+      "type": "biginteger"
+    },
+    "previousLocation": {
+      "type": "string",
+      "minLength": 5
+    },
+    "newLocation": {
+      "type": "string",
+      "minLength": 5
+    },
+    "timestamp": {
+      "type": "datetime"
+    },
+    "user": {
+      "type": "string",
+      "minLength": 2,
+      "required": true
+    }
+  }
+}

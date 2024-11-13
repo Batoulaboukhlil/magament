@@ -1,0 +1,38 @@
+{
+  "kind": "collectionType",
+  "collectionName": "reports",
+  "info": {
+    "singularName": "report",
+    "pluralName": "reports",
+    "displayName": "Report"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "ReportID": {
+      "type": "uid"
+    },
+    "type": {
+      "type": "string",
+      "required": true,
+      "minLength": 2
+    },
+    "startDate": {
+      "type": "datetime",
+      "required": true
+    },
+    "endDate": {
+      "type": "datetime"
+    },
+    "data": {
+      "type": "json",
+      "required": true
+    },
+    "generatedAt": {
+      "type": "datetime",
+      "required": true
+    }
+  }
+}

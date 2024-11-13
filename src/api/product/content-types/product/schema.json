@@ -1,0 +1,66 @@
+{
+  "kind": "collectionType",
+  "collectionName": "products",
+  "info": {
+    "singularName": "product",
+    "pluralName": "products",
+    "displayName": "Product",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "minLength": 1
+    },
+    "description": {
+      "type": "text",
+      "required": true,
+      "minLength": 5
+    },
+    "productID": {
+      "type": "uid",
+      "required": true
+    },
+    "location": {
+      "type": "string",
+      "required": true
+    },
+    "quantity": {
+      "type": "biginteger",
+      "min": "0",
+      "required": true
+    },
+    "lowStockThreshold": {
+      "type": "biginteger"
+    },
+    "createdAtDate": {
+      "type": "datetime"
+    },
+    "updatedAtDate": {
+      "type": "datetime"
+    },
+    "deliveries": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::delivery.delivery",
+      "mappedBy": "product_id"
+    },
+    "notifications": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::notification.notification",
+      "mappedBy": "related_product"
+    },
+    "inventory_log": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::nventory-log.nventory-log",
+      "mappedBy": "product"
+    }
+  }
+}
