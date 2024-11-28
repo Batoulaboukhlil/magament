@@ -4,21 +4,14 @@
   "info": {
     "singularName": "notification",
     "pluralName": "notifications",
-    "displayName": "Notification"
+    "displayName": "Notification",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
   },
   "pluginOptions": {},
   "attributes": {
-    "notificationID": {
-      "type": "uid"
-    },
-    "type": {
-      "type": "string",
-      "minLength": 2,
-      "required": true
-    },
     "message": {
       "type": "text",
       "required": true,
@@ -28,23 +21,29 @@
       "type": "datetime",
       "required": true
     },
-    "statusOf": {
-      "type": "string"
+    "related_deliveries": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::delivery.delivery",
+      "inversedBy": "notifications"
     },
     "related_product": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::product.product",
-      "inversedBy": "notifications"
+      "inversedBy": "notification"
     },
-    "related_delivery": {
+    "address": {
       "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::delivery.delivery",
-      "inversedBy": "notifications"
+      "relation": "oneToOne",
+      "target": "api::address.address",
+      "inversedBy": "notification"
     },
-    "createdAtDate": {
-      "type": "datetime"
+    "worker": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::wroker.wroker",
+      "inversedBy": "notification"
     }
   }
 }

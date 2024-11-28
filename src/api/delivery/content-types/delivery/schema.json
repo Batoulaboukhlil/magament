@@ -12,15 +12,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "deliveryID": {
-      "type": "uid"
-    },
-    "supplier": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::supplier.supplier",
-      "inversedBy": "deliveries"
-    },
     "arrivalTimestamp": {
       "type": "date",
       "required": true
@@ -32,28 +23,34 @@
     "expectedArrivalTimestamp": {
       "type": "date"
     },
-    "product": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::product.product"
-    },
-    "product_id": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::product.product",
-      "inversedBy": "deliveries"
-    },
-    "createdAtDate": {
-      "type": "date"
-    },
-    "updatedAtDate": {
-      "type": "date"
-    },
     "notifications": {
       "type": "relation",
-      "relation": "oneToMany",
+      "relation": "manyToMany",
       "target": "api::notification.notification",
-      "mappedBy": "related_delivery"
+      "mappedBy": "related_deliveries"
+    },
+    "address": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::address.address"
+    },
+    "customer": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::customer.customer",
+      "inversedBy": "deliveries"
+    },
+    "order": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::order.order",
+      "mappedBy": "delivery"
+    },
+    "suppliers": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::supplier.supplier",
+      "mappedBy": "deliveries"
     }
   }
 }

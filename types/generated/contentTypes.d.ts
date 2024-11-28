@@ -369,6 +369,112 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiAddressAddress extends Struct.CollectionTypeSchema {
+  collectionName: 'addresses';
+  info: {
+    displayName: 'Address';
+    pluralName: 'addresses';
+    singularName: 'address';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    city: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 1;
+      }>;
+    country: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 1;
+      }>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::address.address'
+    > &
+      Schema.Attribute.Private;
+    notification: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::notification.notification'
+    >;
+    order: Schema.Attribute.Relation<'oneToOne', 'api::order.order'>;
+    publishedAt: Schema.Attribute.DateTime;
+    street: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 1;
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    zip_code: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 1;
+      }>;
+  };
+}
+
+export interface ApiCustomerCustomer extends Struct.CollectionTypeSchema {
+  collectionName: 'customers';
+  info: {
+    description: '';
+    displayName: 'Customer';
+    pluralName: 'customers';
+    singularName: 'customer';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    address: Schema.Attribute.Relation<'oneToOne', 'api::address.address'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    deliveries: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::delivery.delivery'
+    >;
+    email: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 10;
+      }>;
+    first_name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 1;
+      }>;
+    last_name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 1;
+      }>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::customer.customer'
+    > &
+      Schema.Attribute.Private;
+    order: Schema.Attribute.Relation<'oneToOne', 'api::order.order'>;
+    phone: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 9;
+      }>;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiDeliveryDelivery extends Struct.CollectionTypeSchema {
   collectionName: 'deliveries';
   info: {
@@ -381,12 +487,12 @@ export interface ApiDeliveryDelivery extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    address: Schema.Attribute.Relation<'oneToOne', 'api::address.address'>;
     arrivalTimestamp: Schema.Attribute.Date & Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
-    createdAtDate: Schema.Attribute.Date;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    deliveryID: Schema.Attribute.UID;
+    customer: Schema.Attribute.Relation<'manyToOne', 'api::customer.customer'>;
     expectedArrivalTimestamp: Schema.Attribute.Date;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -395,16 +501,17 @@ export interface ApiDeliveryDelivery extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     notifications: Schema.Attribute.Relation<
-      'oneToMany',
+      'manyToMany',
       'api::notification.notification'
     >;
-    product: Schema.Attribute.Relation<'oneToOne', 'api::product.product'>;
-    product_id: Schema.Attribute.Relation<'manyToOne', 'api::product.product'>;
+    order: Schema.Attribute.Relation<'oneToOne', 'api::order.order'>;
     publishedAt: Schema.Attribute.DateTime;
     statusOf: Schema.Attribute.Boolean & Schema.Attribute.Required;
-    supplier: Schema.Attribute.Relation<'manyToOne', 'api::supplier.supplier'>;
+    suppliers: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::supplier.supplier'
+    >;
     updatedAt: Schema.Attribute.DateTime;
-    updatedAtDate: Schema.Attribute.Date;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
   };
@@ -414,6 +521,7 @@ export interface ApiNotificationNotification
   extends Struct.CollectionTypeSchema {
   collectionName: 'notifications';
   info: {
+    description: '';
     displayName: 'Notification';
     pluralName: 'notifications';
     singularName: 'notification';
@@ -422,8 +530,8 @@ export interface ApiNotificationNotification
     draftAndPublish: true;
   };
   attributes: {
+    address: Schema.Attribute.Relation<'oneToOne', 'api::address.address'>;
     createdAt: Schema.Attribute.DateTime;
-    createdAtDate: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
@@ -437,26 +545,20 @@ export interface ApiNotificationNotification
       Schema.Attribute.SetMinMaxLength<{
         minLength: 5;
       }>;
-    notificationID: Schema.Attribute.UID;
     publishedAt: Schema.Attribute.DateTime;
-    related_delivery: Schema.Attribute.Relation<
-      'manyToOne',
+    related_deliveries: Schema.Attribute.Relation<
+      'manyToMany',
       'api::delivery.delivery'
     >;
     related_product: Schema.Attribute.Relation<
       'manyToOne',
       'api::product.product'
     >;
-    statusOf: Schema.Attribute.String;
     timestamp: Schema.Attribute.DateTime & Schema.Attribute.Required;
-    type: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetMinMaxLength<{
-        minLength: 2;
-      }>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    worker: Schema.Attribute.Relation<'oneToOne', 'api::wroker.wroker'>;
   };
 }
 
@@ -485,7 +587,6 @@ export interface ApiNventoryLogNventoryLog extends Struct.CollectionTypeSchema {
       'api::nventory-log.nventory-log'
     > &
       Schema.Attribute.Private;
-    logID: Schema.Attribute.UID;
     newLocation: Schema.Attribute.String &
       Schema.Attribute.SetMinMaxLength<{
         minLength: 5;
@@ -494,18 +595,52 @@ export interface ApiNventoryLogNventoryLog extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         minLength: 5;
       }>;
-    product: Schema.Attribute.Relation<'oneToOne', 'api::product.product'>;
+    product: Schema.Attribute.Relation<'oneToMany', 'api::product.product'>;
     publishedAt: Schema.Attribute.DateTime;
     quantityChange: Schema.Attribute.BigInteger;
-    timestamp: Schema.Attribute.DateTime;
+    type: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 3;
+      }> &
+      Schema.Attribute.DefaultTo<'InventoryLog'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    user: Schema.Attribute.String &
+    worker: Schema.Attribute.Relation<'manyToMany', 'api::wroker.wroker'>;
+  };
+}
+
+export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
+  collectionName: 'orders';
+  info: {
+    displayName: 'Order';
+    pluralName: 'orders';
+    singularName: 'order';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    address: Schema.Attribute.Relation<'oneToOne', 'api::address.address'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    customer: Schema.Attribute.Relation<'oneToOne', 'api::customer.customer'>;
+    delivery: Schema.Attribute.Relation<'oneToOne', 'api::delivery.delivery'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::order.order'> &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    statusOf: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
-        minLength: 2;
-      }>;
+        minLength: 3;
+      }> &
+      Schema.Attribute.DefaultTo<'PENDING'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
@@ -521,21 +656,17 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    address: Schema.Attribute.Relation<'oneToOne', 'api::address.address'>;
     createdAt: Schema.Attribute.DateTime;
-    createdAtDate: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    deliveries: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::delivery.delivery'
-    >;
     description: Schema.Attribute.Text &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
         minLength: 5;
       }>;
     inventory_log: Schema.Attribute.Relation<
-      'oneToOne',
+      'manyToOne',
       'api::nventory-log.nventory-log'
     >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
@@ -544,18 +675,16 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
       'api::product.product'
     > &
       Schema.Attribute.Private;
-    location: Schema.Attribute.String & Schema.Attribute.Required;
     lowStockThreshold: Schema.Attribute.BigInteger;
     name: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
         minLength: 1;
       }>;
-    notifications: Schema.Attribute.Relation<
+    notification: Schema.Attribute.Relation<
       'oneToMany',
       'api::notification.notification'
     >;
-    productID: Schema.Attribute.UID & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
     quantity: Schema.Attribute.BigInteger &
       Schema.Attribute.Required &
@@ -566,7 +695,6 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
         string
       >;
     updatedAt: Schema.Attribute.DateTime;
-    updatedAtDate: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
   };
@@ -612,6 +740,7 @@ export interface ApiReportReport extends Struct.CollectionTypeSchema {
 export interface ApiSupplierSupplier extends Struct.CollectionTypeSchema {
   collectionName: 'suppliers';
   info: {
+    description: '';
     displayName: 'Supplier';
     pluralName: 'suppliers';
     singularName: 'supplier';
@@ -620,13 +749,12 @@ export interface ApiSupplierSupplier extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    contactInfo: Schema.Attribute.JSON;
+    address: Schema.Attribute.Relation<'oneToOne', 'api::address.address'>;
     createdAt: Schema.Attribute.DateTime;
-    createdAtDate: Schema.Attribute.Date;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     deliveries: Schema.Attribute.Relation<
-      'oneToMany',
+      'manyToMany',
       'api::delivery.delivery'
     >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
@@ -635,18 +763,75 @@ export interface ApiSupplierSupplier extends Struct.CollectionTypeSchema {
       'api::supplier.supplier'
     > &
       Schema.Attribute.Private;
+    mail: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 5;
+      }>;
     name: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
         minLength: 1;
       }>;
+    phone: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 9;
+      }>;
     publishedAt: Schema.Attribute.DateTime;
     statusOf: Schema.Attribute.Boolean;
-    supplierID: Schema.Attribute.UID;
     updatedAt: Schema.Attribute.DateTime;
-    updatedAtDate: Schema.Attribute.Date;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+  };
+}
+
+export interface ApiWrokerWroker extends Struct.CollectionTypeSchema {
+  collectionName: 'wrokers';
+  info: {
+    description: '';
+    displayName: 'Worker';
+    pluralName: 'wrokers';
+    singularName: 'wroker';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    address: Schema.Attribute.Relation<'oneToOne', 'api::address.address'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    email: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 5;
+      }>;
+    inventory_logs: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::nventory-log.nventory-log'
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::wroker.wroker'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 2;
+      }>;
+    notification: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::notification.notification'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    statusOf: Schema.Attribute.Boolean;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    worker_id: Schema.Attribute.UID & Schema.Attribute.Required;
   };
 }
 
@@ -1159,12 +1344,16 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::address.address': ApiAddressAddress;
+      'api::customer.customer': ApiCustomerCustomer;
       'api::delivery.delivery': ApiDeliveryDelivery;
       'api::notification.notification': ApiNotificationNotification;
       'api::nventory-log.nventory-log': ApiNventoryLogNventoryLog;
+      'api::order.order': ApiOrderOrder;
       'api::product.product': ApiProductProduct;
       'api::report.report': ApiReportReport;
       'api::supplier.supplier': ApiSupplierSupplier;
+      'api::wroker.wroker': ApiWrokerWroker;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

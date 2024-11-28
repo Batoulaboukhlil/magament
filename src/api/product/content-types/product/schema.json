@@ -22,14 +22,6 @@
       "required": true,
       "minLength": 5
     },
-    "productID": {
-      "type": "uid",
-      "required": true
-    },
-    "location": {
-      "type": "string",
-      "required": true
-    },
     "quantity": {
       "type": "biginteger",
       "min": "0",
@@ -38,19 +30,7 @@
     "lowStockThreshold": {
       "type": "biginteger"
     },
-    "createdAtDate": {
-      "type": "datetime"
-    },
-    "updatedAtDate": {
-      "type": "datetime"
-    },
-    "deliveries": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::delivery.delivery",
-      "mappedBy": "product_id"
-    },
-    "notifications": {
+    "notification": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::notification.notification",
@@ -58,9 +38,14 @@
     },
     "inventory_log": {
       "type": "relation",
-      "relation": "oneToOne",
+      "relation": "manyToOne",
       "target": "api::nventory-log.nventory-log",
-      "mappedBy": "product"
+      "inversedBy": "product"
+    },
+    "address": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::address.address"
     }
   }
 }
