@@ -372,6 +372,7 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
 export interface ApiAddressAddress extends Struct.CollectionTypeSchema {
   collectionName: 'addresses';
   info: {
+    description: '';
     displayName: 'Address';
     pluralName: 'addresses';
     singularName: 'address';
@@ -399,11 +400,6 @@ export interface ApiAddressAddress extends Struct.CollectionTypeSchema {
       'api::address.address'
     > &
       Schema.Attribute.Private;
-    notification: Schema.Attribute.Relation<
-      'oneToOne',
-      'api::notification.notification'
-    >;
-    order: Schema.Attribute.Relation<'oneToOne', 'api::order.order'>;
     publishedAt: Schema.Attribute.DateTime;
     street: Schema.Attribute.String &
       Schema.Attribute.Required &
@@ -530,7 +526,6 @@ export interface ApiNotificationNotification
     draftAndPublish: true;
   };
   attributes: {
-    address: Schema.Attribute.Relation<'oneToOne', 'api::address.address'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -622,7 +617,6 @@ export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    address: Schema.Attribute.Relation<'oneToOne', 'api::address.address'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -831,7 +825,6 @@ export interface ApiWrokerWroker extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    worker_id: Schema.Attribute.UID & Schema.Attribute.Required;
   };
 }
 

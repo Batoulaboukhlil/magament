@@ -1,0 +1,46 @@
+{
+  "kind": "collectionType",
+  "collectionName": "wrokers",
+  "info": {
+    "singularName": "wroker",
+    "pluralName": "wrokers",
+    "displayName": "Worker",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "minLength": 2,
+      "required": true
+    },
+    "email": {
+      "type": "string",
+      "required": true,
+      "minLength": 5
+    },
+    "statusOf": {
+      "type": "boolean"
+    },
+    "inventory_logs": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::nventory-log.nventory-log",
+      "mappedBy": "worker"
+    },
+    "notification": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::notification.notification",
+      "mappedBy": "worker"
+    },
+    "address": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::address.address"
+    }
+  }
+}
