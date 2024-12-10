@@ -688,6 +688,7 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
         },
         string
       >;
+    supplier: Schema.Attribute.Relation<'oneToOne', 'api::supplier.supplier'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -751,23 +752,23 @@ export interface ApiSupplierSupplier extends Struct.CollectionTypeSchema {
       'manyToMany',
       'api::delivery.delivery'
     >;
+    email: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 5;
+      }>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::supplier.supplier'
     > &
       Schema.Attribute.Private;
-    mail: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetMinMaxLength<{
-        minLength: 5;
-      }>;
     name: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
         minLength: 1;
       }>;
-    phone: Schema.Attribute.String &
+    phone_number: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
         minLength: 9;

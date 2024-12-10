@@ -26,12 +26,12 @@
       "relation": "oneToOne",
       "target": "api::address.address"
     },
-    "phone": {
+    "phone_number": {
       "type": "string",
       "required": true,
       "minLength": 9
     },
-    "mail": {
+    "email": {
       "type": "string",
       "required": true,
       "minLength": 5
