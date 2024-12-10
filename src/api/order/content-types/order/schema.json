@@ -4,8 +4,7 @@
   "info": {
     "singularName": "order",
     "pluralName": "orders",
-    "displayName": "Order",
-    "description": ""
+    "displayName": "Order"
   },
   "options": {
     "draftAndPublish": true
@@ -22,6 +21,12 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::customer.customer",
+      "inversedBy": "order"
+    },
+    "delivery": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::delivery.delivery",
       "inversedBy": "order"
     }
   }

@@ -687,6 +687,7 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
         },
         string
       >;
+    supplier: Schema.Attribute.Relation<'oneToOne', 'api::supplier.supplier'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -766,7 +767,7 @@ export interface ApiSupplierSupplier extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         minLength: 1;
       }>;
-    phone: Schema.Attribute.String &
+    phone_number: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
         minLength: 9;

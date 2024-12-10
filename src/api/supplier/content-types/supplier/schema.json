@@ -26,7 +26,7 @@
       "relation": "oneToOne",
       "target": "api::address.address"
     },
-    "phone": {
+    "phone_number": {
       "type": "string",
       "required": true,
       "minLength": 9
