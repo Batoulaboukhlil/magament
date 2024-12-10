@@ -31,7 +31,7 @@
       "required": true,
       "minLength": 9
     },
-    "mail": {
+    "email": {
       "type": "string",
       "required": true,
       "minLength": 5

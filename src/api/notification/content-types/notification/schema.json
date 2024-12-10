@@ -33,12 +33,6 @@
       "target": "api::product.product",
       "inversedBy": "notification"
     },
-    "address": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::address.address",
-      "inversedBy": "notification"
-    },
     "worker": {
       "type": "relation",
       "relation": "oneToOne",
