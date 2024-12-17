@@ -609,6 +609,7 @@ export interface ApiNventoryLogNventoryLog extends Struct.CollectionTypeSchema {
 export interface ApiOrderItemOrderItem extends Struct.CollectionTypeSchema {
   collectionName: 'order_items';
   info: {
+    description: '';
     displayName: 'Order_Item';
     pluralName: 'order-items';
     singularName: 'order-item';
@@ -627,7 +628,7 @@ export interface ApiOrderItemOrderItem extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     order: Schema.Attribute.Relation<'manyToOne', 'api::order.order'>;
-    products: Schema.Attribute.Relation<'oneToMany', 'api::product.product'>;
+    product: Schema.Attribute.Relation<'manyToOne', 'api::product.product'>;
     publishedAt: Schema.Attribute.DateTime;
     quantity: Schema.Attribute.Integer;
     updatedAt: Schema.Attribute.DateTime;
@@ -713,6 +714,10 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
     notification: Schema.Attribute.Relation<
       'oneToMany',
       'api::notification.notification'
+    >;
+    order_items: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::order-item.order-item'
     >;
     publishedAt: Schema.Attribute.DateTime;
     quantity: Schema.Attribute.BigInteger &
