@@ -52,5 +52,5 @@
       "target": "api::order.order",
       "inversedBy": "delivery"
     }
-}
+  }
 }

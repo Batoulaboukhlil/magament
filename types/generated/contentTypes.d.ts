@@ -606,9 +606,41 @@ export interface ApiNventoryLogNventoryLog extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiOrderItemOrderItem extends Struct.CollectionTypeSchema {
+  collectionName: 'order_items';
+  info: {
+    description: '';
+    displayName: 'Order_Item';
+    pluralName: 'order-items';
+    singularName: 'order-item';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::order-item.order-item'
+    > &
+      Schema.Attribute.Private;
+    order: Schema.Attribute.Relation<'manyToOne', 'api::order.order'>;
+    product: Schema.Attribute.Relation<'manyToOne', 'api::product.product'>;
+    publishedAt: Schema.Attribute.DateTime;
+    quantity: Schema.Attribute.Integer;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
   collectionName: 'orders';
   info: {
+    description: '';
     displayName: 'Order';
     pluralName: 'orders';
     singularName: 'order';
@@ -625,6 +657,10 @@ export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::order.order'> &
       Schema.Attribute.Private;
+    order_items: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::order-item.order-item'
+    >;
     publishedAt: Schema.Attribute.DateTime;
     statusOf: Schema.Attribute.String &
       Schema.Attribute.Required &
@@ -678,6 +714,10 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
     notification: Schema.Attribute.Relation<
       'oneToMany',
       'api::notification.notification'
+    >;
+    order_items: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::order-item.order-item'
     >;
     publishedAt: Schema.Attribute.DateTime;
     quantity: Schema.Attribute.BigInteger &
@@ -774,7 +814,6 @@ export interface ApiSupplierSupplier extends Struct.CollectionTypeSchema {
         minLength: 9;
       }>;
     publishedAt: Schema.Attribute.DateTime;
-    statusOf: Schema.Attribute.Boolean;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1343,6 +1382,7 @@ declare module '@strapi/strapi' {
       'api::delivery.delivery': ApiDeliveryDelivery;
       'api::notification.notification': ApiNotificationNotification;
       'api::nventory-log.nventory-log': ApiNventoryLogNventoryLog;
+      'api::order-item.order-item': ApiOrderItemOrderItem;
       'api::order.order': ApiOrderOrder;
       'api::product.product': ApiProductProduct;
       'api::report.report': ApiReportReport;
