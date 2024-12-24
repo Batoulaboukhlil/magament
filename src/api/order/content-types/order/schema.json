@@ -18,12 +18,6 @@
       "minLength": 3,
       "default": "PENDING"
     },
-    "customer": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::customer.customer",
-      "inversedBy": "order"
-    },
     "delivery": {
       "type": "relation",
       "relation": "oneToOne",
@@ -35,6 +29,12 @@
       "relation": "oneToMany",
       "target": "api::order-item.order-item",
       "mappedBy": "order"
+    },
+    "customer": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::customer.customer",
+      "inversedBy": "orders"
     }
   }
 }

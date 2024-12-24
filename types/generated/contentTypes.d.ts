@@ -458,7 +458,7 @@ export interface ApiCustomerCustomer extends Struct.CollectionTypeSchema {
       'api::customer.customer'
     > &
       Schema.Attribute.Private;
-    order: Schema.Attribute.Relation<'oneToOne', 'api::order.order'>;
+    orders: Schema.Attribute.Relation<'oneToMany', 'api::order.order'>;
     phone: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
@@ -652,7 +652,7 @@ export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    customer: Schema.Attribute.Relation<'oneToOne', 'api::customer.customer'>;
+    customer: Schema.Attribute.Relation<'manyToOne', 'api::customer.customer'>;
     delivery: Schema.Attribute.Relation<'oneToOne', 'api::delivery.delivery'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::order.order'> &
