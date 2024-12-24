@@ -17,10 +17,6 @@
       "minLength": 1,
       "required": true
     },
-    "statusOf": {
-      "type": "boolean",
-      "required": false
-    },
     "address": {
       "type": "relation",
       "relation": "oneToOne",
