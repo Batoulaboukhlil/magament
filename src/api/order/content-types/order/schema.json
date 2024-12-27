@@ -20,15 +20,15 @@
     },
     "customer": {
       "type": "relation",
-      "relation": "oneToOne",
+      "relation": "manyToOne",
       "target": "api::customer.customer",
-      "inversedBy": "order"
+      "inversedBy": "orders"
     },
     "delivery": {
       "type": "relation",
-      "relation": "oneToOne",
+      "relation": "manyToOne",
       "target": "api::delivery.delivery",
-      "inversedBy": "order"
+      "inversedBy": "orders"
     },
     "order_items": {
       "type": "relation",
