@@ -41,17 +41,17 @@
       "target": "api::customer.customer",
       "inversedBy": "deliveries"
     },
-    "order": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::order.order",
-      "mappedBy": "delivery"
-    },
     "suppliers": {
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::supplier.supplier",
       "mappedBy": "deliveries"
+    },
+    "orders": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::order.order",
+      "mappedBy": "delivery"
     }
   }
 }

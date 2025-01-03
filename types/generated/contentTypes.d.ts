@@ -458,7 +458,7 @@ export interface ApiCustomerCustomer extends Struct.CollectionTypeSchema {
       'api::customer.customer'
     > &
       Schema.Attribute.Private;
-    order: Schema.Attribute.Relation<'oneToOne', 'api::order.order'>;
+    orders: Schema.Attribute.Relation<'oneToMany', 'api::order.order'>;
     phone: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
@@ -500,7 +500,7 @@ export interface ApiDeliveryDelivery extends Struct.CollectionTypeSchema {
       'manyToMany',
       'api::notification.notification'
     >;
-    order: Schema.Attribute.Relation<'oneToOne', 'api::order.order'>;
+    orders: Schema.Attribute.Relation<'oneToMany', 'api::order.order'>;
     publishedAt: Schema.Attribute.DateTime;
     statusOf: Schema.Attribute.Boolean & Schema.Attribute.Required;
     suppliers: Schema.Attribute.Relation<
@@ -653,8 +653,8 @@ export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    customer: Schema.Attribute.Relation<'oneToOne', 'api::customer.customer'>;
-    delivery: Schema.Attribute.Relation<'oneToOne', 'api::delivery.delivery'>;
+    customer: Schema.Attribute.Relation<'manyToOne', 'api::customer.customer'>;
+    delivery: Schema.Attribute.Relation<'manyToOne', 'api::delivery.delivery'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::order.order'> &
       Schema.Attribute.Private;
@@ -808,7 +808,6 @@ export interface ApiSupplierSupplier extends Struct.CollectionTypeSchema {
         minLength: 9;
       }>;
     publishedAt: Schema.Attribute.DateTime;
-    statusOf: Schema.Attribute.Boolean;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
