@@ -1,9 +1,9 @@
 {
   "kind": "collectionType",
-  "collectionName": "nventory_logs",
+  "collectionName": "inventory_logs",
   "info": {
-    "singularName": "nventory-log",
-    "pluralName": "nventory-logs",
+    "singularName": "inventory-log",
+    "pluralName": "inventory-logs",
     "displayName": "Inventory Log",
     "description": ""
   },
@@ -36,7 +36,7 @@
     "worker": {
       "type": "relation",
       "relation": "manyToMany",
-      "target": "api::wroker.wroker",
+      "target": "api::worker.worker",
       "inversedBy": "inventory_logs"
     },
     "type": {

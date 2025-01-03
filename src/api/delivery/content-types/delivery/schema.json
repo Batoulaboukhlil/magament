@@ -14,14 +14,15 @@
   "attributes": {
     "arrivalTimestamp": {
       "type": "date",
-      "required": true
+      "required": false
     },
     "statusOf": {
       "type": "boolean",
       "required": true
     },
     "expectedArrivalTimestamp": {
-      "type": "date"
+      "type": "date",
+      "required": true
     },
     "notifications": {
       "type": "relation",

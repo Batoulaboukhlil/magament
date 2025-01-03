@@ -484,12 +484,12 @@ export interface ApiDeliveryDelivery extends Struct.CollectionTypeSchema {
   };
   attributes: {
     address: Schema.Attribute.Relation<'oneToOne', 'api::address.address'>;
-    arrivalTimestamp: Schema.Attribute.Date & Schema.Attribute.Required;
+    arrivalTimestamp: Schema.Attribute.Date;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     customer: Schema.Attribute.Relation<'manyToOne', 'api::customer.customer'>;
-    expectedArrivalTimestamp: Schema.Attribute.Date;
+    expectedArrivalTimestamp: Schema.Attribute.Date & Schema.Attribute.Required;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -510,6 +510,56 @@ export interface ApiDeliveryDelivery extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+  };
+}
+
+export interface ApiInventoryLogInventoryLog
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'inventory_logs';
+  info: {
+    description: '';
+    displayName: 'Inventory Log';
+    pluralName: 'inventory-logs';
+    singularName: 'inventory-log';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    action: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 5;
+      }>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::inventory-log.inventory-log'
+    > &
+      Schema.Attribute.Private;
+    newLocation: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 5;
+      }>;
+    previousLocation: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 5;
+      }>;
+    product: Schema.Attribute.Relation<'oneToMany', 'api::product.product'>;
+    publishedAt: Schema.Attribute.DateTime;
+    quantityChange: Schema.Attribute.BigInteger;
+    type: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 3;
+      }> &
+      Schema.Attribute.DefaultTo<'InventoryLog'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    worker: Schema.Attribute.Relation<'manyToMany', 'api::worker.worker'>;
   };
 }
 
@@ -553,56 +603,7 @@ export interface ApiNotificationNotification
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    worker: Schema.Attribute.Relation<'oneToOne', 'api::wroker.wroker'>;
-  };
-}
-
-export interface ApiNventoryLogNventoryLog extends Struct.CollectionTypeSchema {
-  collectionName: 'nventory_logs';
-  info: {
-    description: '';
-    displayName: 'Inventory Log';
-    pluralName: 'nventory-logs';
-    singularName: 'nventory-log';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    action: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        minLength: 5;
-      }>;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::nventory-log.nventory-log'
-    > &
-      Schema.Attribute.Private;
-    newLocation: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        minLength: 5;
-      }>;
-    previousLocation: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        minLength: 5;
-      }>;
-    product: Schema.Attribute.Relation<'oneToMany', 'api::product.product'>;
-    publishedAt: Schema.Attribute.DateTime;
-    quantityChange: Schema.Attribute.BigInteger;
-    type: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetMinMaxLength<{
-        minLength: 3;
-      }> &
-      Schema.Attribute.DefaultTo<'InventoryLog'>;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    worker: Schema.Attribute.Relation<'manyToMany', 'api::wroker.wroker'>;
+    worker: Schema.Attribute.Relation<'oneToOne', 'api::worker.worker'>;
   };
 }
 
@@ -697,7 +698,7 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
       }>;
     inventory_log: Schema.Attribute.Relation<
       'manyToOne',
-      'api::nventory-log.nventory-log'
+      'api::inventory-log.inventory-log'
     >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -705,7 +706,7 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
       'api::product.product'
     > &
       Schema.Attribute.Private;
-    lowStockThreshold: Schema.Attribute.BigInteger;
+    lowStockThreshold: Schema.Attribute.Integer;
     name: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
@@ -720,14 +721,7 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
       'api::order-item.order-item'
     >;
     publishedAt: Schema.Attribute.DateTime;
-    quantity: Schema.Attribute.BigInteger &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetMinMax<
-        {
-          min: '0';
-        },
-        string
-      >;
+    quantity: Schema.Attribute.Integer & Schema.Attribute.Required;
     supplier: Schema.Attribute.Relation<'oneToOne', 'api::supplier.supplier'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -821,13 +815,13 @@ export interface ApiSupplierSupplier extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiWrokerWroker extends Struct.CollectionTypeSchema {
-  collectionName: 'wrokers';
+export interface ApiWorkerWorker extends Struct.CollectionTypeSchema {
+  collectionName: 'workers';
   info: {
     description: '';
     displayName: 'Worker';
-    pluralName: 'wrokers';
-    singularName: 'wroker';
+    pluralName: 'workers';
+    singularName: 'worker';
   };
   options: {
     draftAndPublish: true;
@@ -844,12 +838,12 @@ export interface ApiWrokerWroker extends Struct.CollectionTypeSchema {
       }>;
     inventory_logs: Schema.Attribute.Relation<
       'manyToMany',
-      'api::nventory-log.nventory-log'
+      'api::inventory-log.inventory-log'
     >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
-      'api::wroker.wroker'
+      'api::worker.worker'
     > &
       Schema.Attribute.Private;
     name: Schema.Attribute.String &
@@ -1381,14 +1375,14 @@ declare module '@strapi/strapi' {
       'api::address.address': ApiAddressAddress;
       'api::customer.customer': ApiCustomerCustomer;
       'api::delivery.delivery': ApiDeliveryDelivery;
+      'api::inventory-log.inventory-log': ApiInventoryLogInventoryLog;
       'api::notification.notification': ApiNotificationNotification;
-      'api::nventory-log.nventory-log': ApiNventoryLogNventoryLog;
       'api::order-item.order-item': ApiOrderItemOrderItem;
       'api::order.order': ApiOrderOrder;
       'api::product.product': ApiProductProduct;
       'api::report.report': ApiReportReport;
       'api::supplier.supplier': ApiSupplierSupplier;
-      'api::wroker.wroker': ApiWrokerWroker;
+      'api::worker.worker': ApiWorkerWorker;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;
