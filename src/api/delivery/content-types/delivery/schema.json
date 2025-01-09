@@ -16,10 +16,6 @@
       "type": "date",
       "required": false
     },
-    "statusOf": {
-      "type": "boolean",
-      "required": true
-    },
     "expectedArrivalTimestamp": {
       "type": "date",
       "required": true
@@ -52,6 +48,9 @@
       "relation": "oneToMany",
       "target": "api::order.order",
       "mappedBy": "delivery"
+    },
+    "delivery_status": {
+      "type": "string"
     }
   }
 }

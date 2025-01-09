@@ -489,6 +489,7 @@ export interface ApiDeliveryDelivery extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     customer: Schema.Attribute.Relation<'manyToOne', 'api::customer.customer'>;
+    delivery_status: Schema.Attribute.String;
     expectedArrivalTimestamp: Schema.Attribute.Date & Schema.Attribute.Required;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -502,7 +503,6 @@ export interface ApiDeliveryDelivery extends Struct.CollectionTypeSchema {
     >;
     orders: Schema.Attribute.Relation<'oneToMany', 'api::order.order'>;
     publishedAt: Schema.Attribute.DateTime;
-    statusOf: Schema.Attribute.Boolean & Schema.Attribute.Required;
     suppliers: Schema.Attribute.Relation<
       'manyToMany',
       'api::supplier.supplier'
