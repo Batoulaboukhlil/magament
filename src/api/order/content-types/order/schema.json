@@ -18,23 +18,23 @@
       "minLength": 3,
       "default": "PENDING"
     },
+    "customer": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::customer.customer",
+      "inversedBy": "orders"
+    },
     "delivery": {
       "type": "relation",
-      "relation": "oneToOne",
+      "relation": "manyToOne",
       "target": "api::delivery.delivery",
-      "inversedBy": "order"
+      "inversedBy": "orders"
     },
     "order_items": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::order-item.order-item",
       "mappedBy": "order"
-    },
-    "customer": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::customer.customer",
-      "inversedBy": "orders"
     }
   }
 }

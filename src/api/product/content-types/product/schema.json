@@ -23,12 +23,11 @@
       "minLength": 5
     },
     "quantity": {
-      "type": "biginteger",
-      "min": "0",
+      "type": "integer",
       "required": true
     },
     "lowStockThreshold": {
-      "type": "biginteger"
+      "type": "integer"
     },
     "notification": {
       "type": "relation",
@@ -39,7 +38,7 @@
     "inventory_log": {
       "type": "relation",
       "relation": "manyToOne",
-      "target": "api::nventory-log.nventory-log",
+      "target": "api::inventory-log.inventory-log",
       "inversedBy": "product"
     },
     "address": {
