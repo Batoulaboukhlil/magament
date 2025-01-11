@@ -58,12 +58,10 @@ To run the project locally:
   
 2. Install Dependencies:
     ```bash
-    Copy code
     npm install
 
 3. Run the Development Server:
     ```bash
-    Copy code
     npm run develop
 
 4. Access the local instance at http://localhost:1337.
