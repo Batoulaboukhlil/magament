@@ -14,14 +14,11 @@
   "attributes": {
     "arrivalTimestamp": {
       "type": "date",
-      "required": true
-    },
-    "statusOf": {
-      "type": "boolean",
-      "required": true
+      "required": false
     },
     "expectedArrivalTimestamp": {
-      "type": "date"
+      "type": "date",
+      "required": true
     },
     "notifications": {
       "type": "relation",
@@ -51,6 +48,9 @@
       "relation": "oneToMany",
       "target": "api::order.order",
       "mappedBy": "delivery"
+    },
+    "delivery_status": {
+      "type": "string"
     }
   }
 }

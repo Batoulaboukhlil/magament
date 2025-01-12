@@ -1,9 +1,9 @@
 {
   "kind": "collectionType",
-  "collectionName": "wrokers",
+  "collectionName": "workers",
   "info": {
-    "singularName": "wroker",
-    "pluralName": "wrokers",
+    "singularName": "worker",
+    "pluralName": "workers",
     "displayName": "Worker",
     "description": ""
   },
@@ -28,7 +28,7 @@
     "inventory_logs": {
       "type": "relation",
       "relation": "manyToMany",
-      "target": "api::nventory-log.nventory-log",
+      "target": "api::inventory-log.inventory-log",
       "mappedBy": "worker"
     },
     "notification": {

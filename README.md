@@ -1,61 +1,67 @@
-# 🚀 Getting started with Strapi
+# Warehouse Management System (Strapi Project)
 
-Strapi comes with a full featured [Command Line Interface](https://docs.strapi.io/dev-docs/cli) (CLI) which lets you scaffold and manage your project in seconds.
+This project is a Warehouse Management System developed using **Strapi**, a headless CMS that simplifies the process of creating and managing APIs. It provides an efficient way to handle and track warehouse operations, including inventory, orders, delivery, notifications, and reporting.
 
-### `develop`
+## 🌟 Features
 
-Start your Strapi application with autoReload enabled. [Learn more](https://docs.strapi.io/dev-docs/cli#strapi-develop)
+- **Address Management**: Manage customer and supplier addresses effectively.
+- **Customer Management**: Keep track of customer details and order history.
+- **Delivery Module**: Organize and manage deliveries with ease.
+- **Notification System**: Notify customers and workers about order updates and delivery statuses.
+- **Inventory Logging**: Monitor stock changes with detailed inventory logs.
+- **Order and Order Items**: Efficiently handle orders and their associated items.
+- **Product Management**: Add, update, and organize products in the warehouse.
+- **Reports**: Generate reports to analyze warehouse performance.
+- **Supplier Management**: Manage supplier details and their product offerings.
+- **Worker Management**: Assign and manage worker roles and tasks.
 
-```
-npm run develop
-# or
-yarn develop
-```
+## 🚀 Deployment
 
-### `start`
+The project is deployed and live at:
 
-Start your Strapi application with autoReload disabled. [Learn more](https://docs.strapi.io/dev-docs/cli#strapi-start)
+[**Pretty Books - Warehouse Management System**](https://pretty-books-14a0cf3b96.strapiapp.com/)
 
-```
-npm run start
-# or
-yarn start
-```
+You can use the provided API endpoints to interact with the system.
 
-### `build`
+## 🛠️ Technology Stack
 
-Build your admin panel. [Learn more](https://docs.strapi.io/dev-docs/cli#strapi-build)
+- **Backend**: [Strapi](https://strapi.io) - A powerful headless CMS.
+- **Database**: MySQL
+- **Hosting**: Hosted on Strapi's cloud infrastructure.
 
-```
-npm run build
-# or
-yarn build
-```
+## 📂 Folder Structure
 
-## ⚙️ Deployment
+The project is organized into modules representing core functionalities:
 
-Strapi gives you many possible deployment options for your project including [Strapi Cloud](https://cloud.strapi.io). Browse the [deployment section of the documentation](https://docs.strapi.io/dev-docs/deployment) to find the best solution for your use case.
+- **api**
+  - **address**
+  - **customer**
+  - **delivery**
+  - **notification**
+  - **inventory-log**
+  - **order-item**
+  - **order**
+  - **product**
+  - **report**
+  - **supplier**
+  - **worker**
 
-```
-yarn strapi deploy
-```
+Each module contains the necessary controllers, services, and models to define the API structure for the respective entity.
 
-## 📚 Learn more
+## 🔧 Setting Up Locally
 
-- [Resource center](https://strapi.io/resource-center) - Strapi resource center.
-- [Strapi documentation](https://docs.strapi.io) - Official Strapi documentation.
-- [Strapi tutorials](https://strapi.io/tutorials) - List of tutorials made by the core team and the community.
-- [Strapi blog](https://strapi.io/blog) - Official Strapi blog containing articles made by the Strapi team and the community.
-- [Changelog](https://strapi.io/changelog) - Find out about the Strapi product updates, new features and general improvements.
+To run the project locally:
 
-Feel free to check out the [Strapi GitHub repository](https://github.com/strapi/strapi). Your feedback and contributions are welcome!
+1. **Clone the Repository**:
+   ```bash
+   git clone git@gitlab.ti.howest.be:ti/2024-2025/s5/ccett/projects/group-01/cms.git
+  
+2. Install Dependencies:
+    ```bash
+    npm install
 
-## ✨ Community
+3. Run the Development Server:
+    ```bash
+    npm run develop
 
-- [Discord](https://discord.strapi.io) - Come chat with the Strapi community including the core team.
-- [Forum](https://forum.strapi.io/) - Place to discuss, ask questions and find answers, show your Strapi project and get feedback or just talk with other Community members.
-- [Awesome Strapi](https://github.com/strapi/awesome-strapi) - A curated list of awesome things related to Strapi.
-
----
-
-<sub>🤫 Psst! [Strapi is hiring](https://strapi.io/careers).</sub>
+4. Access the local instance at http://localhost:1337.
